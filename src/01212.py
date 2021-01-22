@@ -8,6 +8,9 @@ Created on Jan 21, 2021
    - 通过index: xs.pop(0)
    - 通过元素自身，如果有多个重复，则先删index靠前的元素：xs.remove(value)
 3. 2的3次幂：2**3
+4. range()的用法：输入是一个int型参数，输出是一个list，如
+   >>> range(10)
+   [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 @author: mayijie
 '''

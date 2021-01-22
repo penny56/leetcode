@@ -12,9 +12,7 @@ Created on Jan 22, 2021
 '''
 
 class Solution(object):
-    
 
-    
     def isValid(self, s):
         """
         :type s: str

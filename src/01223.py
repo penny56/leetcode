@@ -4,7 +4,7 @@
 Created on Jan 22, 2021
 
 1. 字典操作：清除：dic.clear()；查key/value对的个数：len(dic)
-2. 列表转字符串：''.join(str)
+2. 列表转字符串：''.join(list)
 
 @author: mayijie
 '''

@@ -5,6 +5,8 @@ Created on Jan 27, 2021
 
 1. if,else写在一行，如果是多个表达式，用tuple:
    more, less = (a, b) if len(a) >= len(b) else (b, a)
+   如果只有if，没有else，则要把赋值语句写后面，加冒号
+   if len(a) >= len(b): max = len(a)
 
 @author: mayijie
 '''

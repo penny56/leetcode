@@ -14,6 +14,14 @@ Created on Feb 10, 2021
    // a = [1,2,3], b = [4,5,6] 则a.extend(b) : [1,2,3,4,5,6]
    -- list.append(list2)        // 在列表末尾添加新元素
    // a = [1,2,3], b = [4,5,6] 则a.append(b) : [1, 2, 3, [4, 5, 6]]
+4. 输出一个01234321012343210这样的一个折返数列：立一个flag
+   i, j = 0, 0
+   loop, flag = 5, -1
+   for i in range(20):
+     print j
+     if j == 0 or j == loop-1: flag = -flag
+     j += flag
+5. 照抄leetcode算法
 
 @author: mayijie
 '''

@@ -1,3 +1,5 @@
-print "Just test".
+print "Just test."
 
-The third line. 
+print "The third line."
+
+print "The fifth line." 

@@ -32,5 +32,5 @@ if __name__ == "__main__":
     
     sol = Solution()
     res = sol.mySqrt(8)
-    print res
+    print (res)
     

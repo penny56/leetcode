@@ -63,5 +63,5 @@ if __name__ == "__main__":
     sol = Solution()
     res = sol.twoSum([3,3], 6)
     
-    print res
+    print (res)
     

@@ -45,7 +45,7 @@ class Solution(object):
                     ra[i] = '1'
                     temp = 0
                 else:
-                    print "error"
+                    print ("error")
         if temp == 1:
             ra.append('1')
         rra = ra[::-1]
@@ -57,4 +57,4 @@ if __name__ == "__main__":
     
     sol = Solution()
     res = sol.addBinary("11", "1")
-    print res
+    print (res)

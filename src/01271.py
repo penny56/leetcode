@@ -28,4 +28,4 @@ class Solution(object):
 if __name__ == "__main__":
     sol = Solution()
     res = sol.lengthOfLastWord("Helloq World ")
-    print res
+    print (res)

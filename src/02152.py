@@ -8,7 +8,6 @@ Created on Feb 10, 2021
 
 @author: mayijie
 '''
-from ctypes.test.test_prototypes import positive_address
 
 class Solution(object):
     def myAtoi(self, s):
@@ -55,4 +54,4 @@ class Solution(object):
 if __name__ == "__main__":
     sol = Solution()
     res = sol.myAtoi("+1")
-    print res
+    print (res)

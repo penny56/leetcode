@@ -35,7 +35,7 @@ class Solution(object):
             for j in range(n):
                 nums1[j] = nums2[j]
         for i in range(cnt):
-            print nums1[i] 
+            print (nums1[i])
         return
 
 if __name__ == "__main__":

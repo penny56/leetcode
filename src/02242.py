@@ -52,4 +52,4 @@ if __name__ == "__main__":
     n21 = ListNode(1, n22)
     l2 = n21
     res = sol.mergeTwoLists(l1, l2)
-    print res
+    print (res)

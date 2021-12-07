@@ -11,7 +11,6 @@ Created on Mar 1, 2021
 
 @author: mayijie
 '''
-from __builtin__ import True
 
 class Solution(object):
 
@@ -32,4 +31,4 @@ class Solution(object):
 if __name__ == "__main__":
     sol = Solution()
     res = sol.singleNumber([4,1,2,1,2])
-    print res
+    print (res)

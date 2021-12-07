@@ -19,9 +19,7 @@ class Solution(object):
         ls = list(s)
         i = 0
         while i < len(ls):
-            
-                
-        
+            pass
 
 if __name__ == "__main__":
     sol = Solution()

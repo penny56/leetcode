@@ -39,4 +39,4 @@ class Solution(object):
 if __name__ == "__main__":
     sol = Solution()
     res = sol.mergeTwoLists([], [0])
-    print res
+    print (res)

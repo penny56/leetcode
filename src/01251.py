@@ -43,4 +43,4 @@ if __name__ == "__main__":
     
     sol = Solution()
     res = sol.strStr("mississippi", "pi")
-    print res
+    print (res)

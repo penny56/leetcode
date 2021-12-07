@@ -1,5 +1,5 @@
-print "Just test."
+print ("Just test.")
 
-print "The third line."
+print ("The third line.")
 
-print "The fifth line." 
+print ("The fifth line.")

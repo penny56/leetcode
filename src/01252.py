@@ -29,4 +29,4 @@ if __name__ == "__main__":
     
     sol = Solution()
     res = sol.searchInsert([1,3,5,6], 0)
-    print res
+    print (res)

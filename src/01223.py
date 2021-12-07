@@ -41,4 +41,4 @@ if __name__ == "__main__":
     
     sol = Solution()
     res = sol.longestCommonPrefix(["dog","racecar","car"])
-    print res
+    print (res)

@@ -75,5 +75,5 @@ if __name__ == "__main__":
     sol = Solution()
     res = sol.mergeTwoLists(l1, l2)
     while res != None:
-        print res.val
+        print (res.val)
         res = res.next

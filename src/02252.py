@@ -36,4 +36,4 @@ class Solution(object):
 if __name__ == "__main__":
     sol = Solution()
     res = sol.isPalindrome("0P")
-    print res
+    print (res)

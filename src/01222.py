@@ -51,7 +51,7 @@ class Solution(object):
                     i = i + 900
                     rl.pop(0)
                 else:
-                    print "Oops~"
+                    print ("Oops~")
                 
         if len(rl) == 1:
             i = i + self.rom[rl.pop(0)]
@@ -61,4 +61,4 @@ class Solution(object):
 if __name__ == "__main__":
     sol = Solution()
     res = sol.romanToInt("MCMXCIV")
-    print res
+    print (res)

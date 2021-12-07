@@ -7,9 +7,6 @@ Created on Feb 08, 2021
 
 @author: mayijie
 '''
-from eam_94335 import res
-from __builtin__ import True
-from Carbon.Aliases import true
 
 class Solution(object):
     def isPalindrome(self, x):
@@ -35,4 +32,4 @@ class Solution(object):
 if __name__ == "__main__":
     sol = Solution()
     res = sol.isPalindrome(12233221)
-    print res
+    print (res)

@@ -41,4 +41,4 @@ if __name__ == "__main__":
     
     sol = Solution()
     res = sol.removeElement([0,1,2,2,3,0,4,2], 2)
-    print res
+    print (res)

@@ -53,4 +53,4 @@ if __name__ == "__main__":
     
     sol = Solution()
     res = sol.countAndSay(3)
-    print res
+    print (res)

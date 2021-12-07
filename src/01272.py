@@ -38,4 +38,4 @@ if __name__ == "__main__":
     
     sol = Solution()
     res = sol.plusOne([0,0,0])
-    print res
+    print (res)

@@ -44,4 +44,4 @@ class Solution(object):
 if __name__ == "__main__":
     sol = Solution()
     res = sol.letterCombinations("45")
-    print res
+    print (res)

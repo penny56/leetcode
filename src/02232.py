@@ -43,4 +43,4 @@ class Solution(object):
 if __name__ == "__main__":
     sol = Solution()
     res = sol.search([3,1], 3)
-    print res
+    print (res)

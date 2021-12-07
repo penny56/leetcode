@@ -23,7 +23,7 @@ class Solution(object):
             for j, y in enumerate(nums[i+1:]):
                 for k, z in enumerate(nums[i+1+j+1:]):
                     for w in nums[i+1+j+1+k+1:]:
-                        print str(x) + ' ' + str(y) + ' ' + str(z) + ' ' + str(w)
+                        print (str(x) + ' ' + str(y) + ' ' + str(z) + ' ' + str(w))
                         if x+y+z+w == target:
                             if prev == []:
                                 prev = [x, y, z, w]
@@ -36,4 +36,4 @@ class Solution(object):
 if __name__ == "__main__":
     sol = Solution()
     res = sol.fourSum([1, 0, -1, 0, -2, 2], 0)
-    print res
+    print (res)

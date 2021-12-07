@@ -21,7 +21,7 @@ class ListNode(object):
         self.next = next
 class Solution(object):
     def reverseLink(self, li):
-        
+        pass
         
     def addTwoNumbers(self, l1, l2):
         """
@@ -29,9 +29,7 @@ class Solution(object):
         :type l2: ListNode
         :rtype: ListNode
         """
-        
-        
-        
+    
         head = ListNode(0)
         ln = head
         while l1 and l2:
@@ -57,4 +55,4 @@ if __name__ == "__main__":
     n21 = ListNode(5, n22)
     l2 = n2
     res = sol.addTwoNumbers(l1, l2)
-    print res
+    print (res)

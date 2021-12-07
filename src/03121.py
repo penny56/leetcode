@@ -41,4 +41,4 @@ class Solution(object):
 if __name__ == "__main__":
     sol = Solution()
     res = sol.climbStairs(5)
-    print res
+    print (res)

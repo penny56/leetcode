@@ -33,4 +33,4 @@ class Solution(object):
 if __name__ == "__main__":
     sol = Solution()
     res = sol.divide(-2147483648, -2)
-    print res
+    print (res)

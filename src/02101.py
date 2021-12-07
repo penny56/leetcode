@@ -11,7 +11,6 @@ Created on Feb 10, 2021
 
 @author: mayijie
 '''
-from __builtin__ import True
 
 class Solution(object):
     def lengthOfLongestSubstring(self, s):
@@ -28,9 +27,9 @@ class Solution(object):
             if len(tarr) > max:
                 max = len(tarr)
         return max
-                
+
 
 if __name__ == "__main__":
     sol = Solution()
     res = sol.lengthOfLongestSubstring("")
-    print res
+    print (res)

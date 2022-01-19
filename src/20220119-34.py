@@ -1,7 +1,17 @@
 '''
 Created on Jan 19, 2022
 
-1. 
+1. List的遍历：
+   1) 只取list中的元素，输出：2  3  4
+      nums = [2,3,4]
+      for curr in nums:
+          print (curr)
+   2) 取list中的元素和index，输出：(0,2)  (1,3)  (2,4)
+      nums = [2,3,4]
+      for curr in enumerate(nums):
+          print (curr)
+      可以看到输出是Tuple，第一个元素是元素index，第二个元素是元素本身，所以可以用curr[0]和curr[1]来表示
+          print (curr[0], curr[1])
 
 @author: mayijie
 '''

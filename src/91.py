@@ -64,7 +64,7 @@ class Solution(object):
 
 
 if __name__ == "__main__":
-    root = []
+    root = [1,2,3,4,5,None,8,None,None,6,7,9]
     sol = Solution()
     res = sol.inorderTraversal(root)
     print (f"res = {res}")

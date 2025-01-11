@@ -7,7 +7,7 @@ class TreeNode(object):
 
 class Solution(object):
     '''
-    递归算法（前，中，后）
+    递归算法（前，中，后），【res】用嵌套函数实现。
     '''
     def recursive(self, root):
         res = []
@@ -27,7 +27,18 @@ class Solution(object):
         doMidOrder(root)
 
         return res
-    
+    '''
+    递归算法（前，中，后），【res】用传入参数实现。
+    '''
+    def midOrderWithParams(self, root, arr):
+        
+        if not root: return arr
+        self.midOrderWithParams(root.left, arr)
+        arr.append(root.val)
+        self.midOrderWithParams(root.right, arr)
+
+        return arr
+
     '''
     迭代算法（前，中，后）
     '''
@@ -106,6 +117,38 @@ class Solution(object):
 
         return res
 
+    '''
+    构建平衡搜索二叉树（递归）
+    arr: 一个有序数组
+    '''
+    def sortedArrayToBST(self, arr):
+        if len(arr) == 0: return
+
+        mid = len(arr)//2                                       #1. 找 root（中间点）
+
+        root = TreeNode(val=arr[mid])                           #2. 创建 root
+        root.left = self.sortedArrayToBST(arr[:mid])            #3. 递归的用左边数组的 [:mid] 去创建 root.left
+        root.right = self.sortedArrayToBST(arr[mid+1:])         #4. 递归的用右边数组的 [mid+1:] 去创建 root.left
+
+        return root
+
+    '''
+    是否平衡二叉树
+    '''
+    def isBalanced(self, root):
+
+        if not root: return True                                            #0. 返回条件
+
+        def height(root):                                                   #1. 定义嵌套函数 Height() 
+            
+            if not root: return 0                                           #1.1 如果根为空，返回0
+            return 1 + max(height(root.left), height(root.right))           #1.2 返回左、右子树的高度+1 
+
+        leftHeight = height(root.left)                                      #2. 得到左、右子树的高度
+        rightHeight = height(root.right)
+
+        return abs(leftHeight - rightHeight) <= 1 and self.isBalanced(root.left) and self.isBalanced(root.right) #3. 左右子树的高度差不高于1 && 左子树 平衡 && 右子树平衡
+
     @classmethod
     def arrayStorageToTreeNode(self, head):
         '''
@@ -143,17 +186,43 @@ class Solution(object):
         return hea
 
 if __name__ == "__main__":
-    head = [1,2,3,4,5,None,8,None,None,6,7,9]
+    #head = [1,2,3,4,5,None,8,None,None,6,7,9]
+
+    # 平衡二叉树
+    head = [3,9,20,None,None,15,7]
+
+    nums = [-10,-3,0,5,9]
+    nums = [1, 3]
 
     # 把数组存储方式 [1,2,3,4,5,None,8,None,None,6,7,9]，改为 TreeNode 方式
     root = Solution.arrayStorageToTreeNode(head)
     
     sol = Solution()
-    res = sol.recursive(root)
+
+    # 遍历二叉树（递归）
+    #res = sol.recursive(root)
+
+    # 遍历二叉树（递归+传参）
+    #arr = []
+    #res = sol.midOrderWithParams(root, arr)
+
+    # 遍历二叉树（迭代）
     #res = sol.midOrder(root)
+
+    # 层次遍历二叉树（迭代）
     #res = sol.levelOrder(root)
+    
+    # 层次遍历二叉树（迭代）（按层次二维输出）
     #res = sol.levelOrderWithLevelOutput(root)
+    
+    # 有序数组 构建 平衡搜索二叉树（递归）
+    #res = sol.sortedArrayToBST(nums2)
+    
+    # 检测是否是平衡二叉树（递归）
+    res = sol.isBalanced(root)
+
     print (f"res = {res}")
+
 '''
 Get the markdown chat from GPT
 head = [1,2,3,4,5,None,8,None,None,6,7,9]

@@ -14,7 +14,8 @@ class Solution(object):
 
         '''
         嵌套函数（nested function）/ 内部函数（Inner function）/ 递归函数（recursive)
-        【注意：这个内部函数没有返回值，它只是去给外部的 res 赋值（res无法定义在递归函数内部，因为每次递归会被清零）】
+        【注意1：这个内部函数没有返回值，它只是去给外部的 res 赋值（res无法定义在递归函数内部，因为每次递归会被清零）】
+        【注意2：这个内部函数的第一个参数 不需要 是self】
         '''
         def doMidOrder(root):
 
@@ -30,12 +31,13 @@ class Solution(object):
     '''
     递归算法（前，中，后），【res】用传入参数实现。
     '''
-    def midOrderWithParams(self, root, arr):
+    def midOrder(self, root, arr):
         
         if not root: return arr
-        self.midOrderWithParams(root.left, arr)
+
+        self.midOrder(root.left, arr)
         arr.append(root.val)
-        self.midOrderWithParams(root.right, arr)
+        self.midOrder(root.right, arr)
 
         return arr
 
@@ -60,7 +62,7 @@ class Solution(object):
                     stack.append((white, curr.left))    # 放栈顶
                 else:
                     res.append(curr.val)
-                    pass
+
         return res
 
     '''
@@ -86,7 +88,7 @@ class Solution(object):
         return res
 
     '''
-    迭代算法（层次遍历没有递归算法）
+    迭代算法（层次输出）（层次遍历没有递归算法）
     '''
     def levelOrderWithLevelOutput(self, root):
         """

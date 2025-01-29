@@ -1,54 +1,29 @@
 class Solution(object):
-    def twoSum(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
-        nums.sort()
-        resList = []
-        j = len(nums) - 1
-        for i in range(len(nums)):
-            if i == j: break
-            while nums[i]+nums[j] > target and j > i:
-                j -= 1
-            if nums[i]+nums[j] == target and j != i:
-                resList.append([nums[i], nums[j]])
-        return resList
-        
+    '''
+    抄袭3指针解法
+    '''
     def threeSumClosest(self, nums, target):
         """
         :type nums: List[int]
-        :type target: int
-        :rtype: int
+        :rtype: List[List[int]]
         """
-        resSet = set()
-        for i, a in enumerate(nums):
-            tmp = nums[:]
-            tmp.pop(i)
-            print (f"i = {i}, a = {a}")
-            twoList = self.twoSum(tmp, -a)
-            if twoList != None:
-                for two in twoList:
-                    three = two[:]
-                    three.append(a)
-                    three.sort()
-                    resSet.add(tuple(three))
-                    print (f"three: {tuple(three)}")
-        
-        resArray = []
-        for a in resSet:
-            resArray.append(list(a))
+        nums.sort()
+        res = -10000
+        for i, num in enumerate(nums):
+            left = i+1
+            right = len(nums)-1
+            while left < right:
+                curr = num+nums[left]+nums[right]
+                if curr == target: return target
 
-        return resArray
+                if abs(res-target) > abs(curr-target): res = curr
 
+                if curr < target: left += 1
+                if curr > target: right -= 1
 
-# nums = [2,7,11,15]
-target = 1
-nums = [-1,2,1,-4]
-
+        return res
 
 sol = Solution()
 
-res = sol.threeSumClosest(nums, target)
-print ("res = ", res)
+
+print(sol.threeSumClosest(nums = [0,0,0], target = 10000))

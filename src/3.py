@@ -5,27 +5,24 @@ class Solution(object):
         :rtype: int
         """
 
-        array = list(s)
-        max = 0
-        if len(s) == 1: return 1
+        maxLength = 0
+        for k in range(len(s)):
+            (i, j) = (k, k)
+            (istop, jstop) = (False, False)
+            while not (istop and jstop):
+                if i-1>=0 and s[i-1] not in s[i:j+1]:
+                    i -= 1
+                else:
+                    istop = True
+                if j+1 <= len(s)-1 and s[j+1] not in s[i:j+1]:
+                    j += 1
+                else:
+                    jstop = True
+            if j-i+1 > maxLength: maxLength = j-i+1
+        
+        return maxLength
 
-        for i, a in enumerate(array):
-            for j, c in enumerate(array):
-                if i < j:
-                    print (f"{i} {j}")
-                    sub = array[i:j+1]
-                    print (f"sub = {sub}")
-                    unique = set(sub)
-                    print (f"unique = {unique}")
-                    if (len(unique) == 1 or len(sub) == len(unique)) and len(unique) > max:
-                        max = len(unique)
-                        print (f"max = {max}")
-
-        return max
-
-s = "abcabcbb"
+            
 
 sol = Solution()
-
-res = sol.lengthOfLongestSubstring(s)
-print ("res = ", res)
+print(sol.lengthOfLongestSubstring(s = ""))

@@ -4,51 +4,34 @@ class Solution(object):
         :type intervals: List[List[int]]
         :rtype: List[List[int]]
         """
-        startMin = 65535
-        endMax = 0
-        for arr in intervals:
-            if min(arr[0], arr[-1]) < startMin: startMin = min(arr[0], arr[-1])
-            if max(arr[0], arr[-1]) > endMax: endMax = max(arr[0], arr[-1])
-        
-        dic = dict()
-        for i in range(startMin, endMax+1):
-            dic[i] = 0
-        
-        for arr in intervals:
-            for i in range(arr[0], arr[-1]+1):
-                dic[i] = 1
-        # print(f"dic = {dic}")
-        
         res = []
-        temp = []
-        temp.insert(0, startMin)
-        recording = True
-        for i in range(startMin, endMax+1):
-            if dic[i] == 1 and not recording:
-                temp.insert(0, i)
-                recording = True
-            if dic[i] == 0 and recording:
-                temp.insert(1, i-1)
-                tempCopy = temp[:]
-                res.append(tempCopy)
-                temp = []
-                recording = False
+        dic = {}
+        startArr = []
+
+        for interval in intervals:
+            if interval[0] not in dic.keys():
+                dic[interval[0]] = interval
+            else:
+                dic[interval[0]] = max(interval, dic[interval[0]])
         
-        temp.insert(1, endMax)
-        res.append(temp)
+        startArr = sorted(list(dic.keys()))
 
-        return res
+        oldArr = dic[startArr.pop(0)]
 
-
+        while startArr:
+            currArr = dic[startArr.pop(0)]
+            if currArr[0] <= oldArr[-1]:
+                # 可 merge
+                oldArr[-1] = max(oldArr[-1], currArr[-1])
+            else:
+                # 不可merge
+                res.append(oldArr)
+                oldArr = currArr
+        
+        res.append(oldArr)
+        
+        return res  
 
 
 sol = Solution()
-
-intervals = [[1,3],[2,6],[8,10],[15,18]]
-res = sol.merge(intervals)
-print ("res = ", res)
-
-
-
-
-
+print(sol.merge(intervals = [[1,3],[2,6],[8,10],[15,18]]))

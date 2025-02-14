@@ -9,7 +9,7 @@ class Solution(object):
     '''
     递归算法（前，中，后），【res】用嵌套函数实现。
     '''
-    def recursive(self, root):
+    def midOrder(self, root):
         res = []
 
         '''
@@ -17,15 +17,15 @@ class Solution(object):
         【注意1：这个内部函数没有返回值，它只是去给外部的 res 赋值（res无法定义在递归函数内部，因为每次递归会被清零）】
         【注意2：这个内部函数的第一个参数 不需要 是self】
         '''
-        def doMidOrder(root):
+        def helper(root):
 
             if not root: return 
             
-            doMidOrder(root.left)
+            helper(root.left)
             res.append(root.val)
-            doMidOrder(root.right)
+            helper(root.right)
 
-        doMidOrder(root)
+        helper(root)
 
         return res
     '''
@@ -48,19 +48,19 @@ class Solution(object):
 
         # stack 中的元素是一个tuple： (<color>, <treeNode>)
         # color 表示有没有访问过：
-        #        - white 表示没有访问，需要优先处理左右子树。
-        #        - gray 表示访问过了，直接写入或者显示吧。
+        #        - white 表示没有访问，仍需递归访问子节点。(第一次到达)
+        #        - gray 子节点已经访问过，现在可以访问该节点值。(第二次到达)
         res = []                                        #0. 定义返回值
         (white, gray) = (0, 1)                          #1. 定义颜色
         stack = [(white, root)]                         #2.1 定义栈，并初始化
         while stack:                                    #2.2 Loop
             (color, curr) = stack.pop()                 #2.3 出栈
             if curr:                                    #3. 判断是否是一个节点？
-                if color == white:                      #4. 判断颜色
+                if color == white:                      #4. 判断颜色（第一次到达）
                     stack.append((white, curr.right))   # 放栈底 【注意反序】【注意这里要 append() 的是一个 tuple ，要双括号->】
                     stack.append((gray, curr))          # 放中间，访问过啦。
                     stack.append((white, curr.left))    # 放栈顶
-                else:
+                else:                                   # 第二次到达。
                     res.append(curr.val)
 
         return res
@@ -120,6 +120,18 @@ class Solution(object):
         return res
 
     '''
+    是否是二叉搜索树
+    '''
+    def is_valid_bst(root):
+        def helper(node, lower=float('-inf'), upper=float('inf')):
+            if not node: return True
+            if not lower <= node.val <= upper: return False     # 1) 检查当前
+            if not helper(node.left, lower, node.val): return False     # 2) 检查左子树
+            if not helper(node.right, node.val, upper): return False    # 3) 检查右子树
+            return True
+        return helper(root)
+
+    '''
     构建平衡搜索二叉树（递归）
     arr: 一个有序数组
     '''
@@ -130,7 +142,7 @@ class Solution(object):
 
         root = TreeNode(val=arr[mid])                           #2. 创建 root
         root.left = self.sortedArrayToBST(arr[:mid])            #3. 递归的用左边数组的 [:mid] 去创建 root.left
-        root.right = self.sortedArrayToBST(arr[mid+1:])         #4. 递归的用右边数组的 [mid+1:] 去创建 root.left
+        root.right = self.sortedArrayToBST(arr[mid+1:])         #4. 递归的用右边数组的 [mid+1:] 去创建 root.right
 
         return root
 
@@ -150,17 +162,43 @@ class Solution(object):
         rightHeight = height(root.right)
 
         return abs(leftHeight - rightHeight) <= 1 and self.isBalanced(root.left) and self.isBalanced(root.right) #3. 左右子树的高度差不高于1 && 左子树 平衡 && 右子树平衡
+    
+    '''
+    从前序与中序遍历构造二叉树
+    '''
+    def buildTree(self, preorder, inorder):
+        """
+        :type preorder: List[int]
+        :type inorder: List[int]
+        :rtype: Optional[TreeNode]
+        """
+
+        def helper(preorder, inorder):
+            if not preorder or not inorder: return None
+
+            rootValue = preorder.pop(0)
+            rootIndex = inorder.index(rootValue)
+            root = TreeNode(rootValue)
+
+            root.left = helper(preorder, inorder[:rootIndex])
+            root.right = helper(preorder, inorder[rootIndex+1:])
+
+            return root
+            
+        return Solution.treeNodeToArray(helper(preorder, inorder))
+
+
 
     @classmethod
     def arrayStorageToTreeNode(self, head):
-        '''
+        ''' 《层次遍历》         --------------------- obsolete -----------------------> see <arrayToTreeNode>
         索引规则（以 0 为起点）：
         - 根节点的索引是 0。
         - 左子节点的索引是 2*i + 1。
         - 右子节点的索引是 2*i + 2。
         '''
-        if head == None: return []
-        # tnDect = {<index> : <node>}
+        if head == None: return []          # 不好，应该是 if not head: return None
+
         tnDict = {}
         tn = TreeNode(head[0])
         (tnDict[0], hea) = (tn, tn)
@@ -187,17 +225,74 @@ class Solution(object):
             i += 1
         return hea
 
+    @classmethod
+    def arrayToTreeNode(cls, head):
+        ''' 《层次遍历》
+        索引规则（以 0 为起点）：
+        - 根节点的索引是 0。
+        - 左子节点的索引是 2*i + 1。
+        - 右子节点的索引是 2*i + 2。
+        '''
+        if not head: return None
+        
+        # 创建根节点
+        root = TreeNode(head[0])
+        stack = [root]
+        i = 1
+        while i < len(head):
+            curr = stack.pop(0)     # 队列，先进先出
+            
+            # 左子节点
+            if i < len(head) and head[i] is not None:   # 不越界，且不为空
+                curr.left = TreeNode(head[i])
+                stack.append(curr.left)
+            i += 1
+
+            # 右子节点
+            if i < len(head) and head[i] is not None:
+                curr.right = TreeNode(head[i])
+                stack.append(curr.right)
+            i += 1
+        
+        return root
+
+    @classmethod
+    def treeNodeToArray(cls, root):
+        '''
+        将二叉树转换为数组表示的形式
+        '''
+        if not root: return []
+        
+        res = []
+        stack = [root]
+        
+        while stack:
+            curr = stack.pop(0)
+            if curr:
+                res.append(curr.val)
+                stack.append(curr.left)
+                stack.append(curr.right)
+            else:
+                res.append(None)
+
+        # 去掉末尾的 None（因为数组的最后几项可能是多余的空节点）
+        while res and res[-1] is None:
+            res.pop()
+
+        return res
+
 if __name__ == "__main__":
-    #head = [1,2,3,4,5,None,8,None,None,6,7,9]
+    head = [1,2,3,4,5,None,8,None,None,6,7,9]
 
     # 平衡二叉树
-    head = [3,9,20,None,None,15,7]
+    head2 = [3,9,20,None,None,15,7]
 
     nums = [-10,-3,0,5,9]
     nums = [1, 3]
 
     # 把数组存储方式 [1,2,3,4,5,None,8,None,None,6,7,9]，改为 TreeNode 方式
-    root = Solution.arrayStorageToTreeNode(head)
+    # root = Solution.arrayStorageToTreeNode(head)
+    # root = Solution.arrayToTreeNode(head2)
     
     sol = Solution()
 
@@ -221,7 +316,12 @@ if __name__ == "__main__":
     #res = sol.sortedArrayToBST(nums2)
     
     # 检测是否是平衡二叉树（递归）
-    res = sol.isBalanced(root)
+    # res = sol.isBalanced(root)
+
+    preorder = [3,9,20,15,7]
+    inorder = [9,3,15,20,7]
+    res = sol.buildTree(preorder, inorder)
+
 
     print (f"res = {res}")
 

@@ -60,13 +60,14 @@ class Solution(object):
                     stack.append((white, curr.right))   # 放栈底 【注意反序】【注意这里要 append() 的是一个 tuple ，要双括号->】
                     stack.append((gray, curr))          # 放中间，访问过啦。
                     stack.append((white, curr.left))    # 放栈顶
-                else:                                   # 第二次到达。
+                else:                                   # 第二次到达（此时左子树已访问）。
                     res.append(curr.val)
 
         return res
 
     '''
     迭代算法（层次遍历没有递归算法）
+    【注意：】层次遍历不需要回溯（这点与前中后序遍历不同），所以不需要color变量。
     '''
     def levelOrder(self, root):
         """
@@ -174,18 +175,41 @@ class Solution(object):
         """
 
         def helper(preorder, inorder):
-            if not preorder or not inorder: return None
+            if len(inorder) == 0: return
+            index = inorder.index(preorder[0])
 
-            rootValue = preorder.pop(0)
-            rootIndex = inorder.index(rootValue)
-            root = TreeNode(rootValue)
 
-            root.left = helper(preorder, inorder[:rootIndex])
-            root.right = helper(preorder, inorder[rootIndex+1:])
+            curr = TreeNode(val=preorder.pop(0))
+            curr.left = helper(preorder, inorder[:index])
+            curr.right = helper(preorder, inorder[index+1:])
 
-            return root
-            
-        return Solution.treeNodeToArray(helper(preorder, inorder))
+            return curr # 记得这里要return，否则挂不上
+        
+        return helper(preorder, inorder)
+    
+    '''
+    从中序与后序遍历构造二叉树
+    '''
+    def buildTree(self, inorder, postorder):
+        """
+        :type inorder: List[int]
+        :type postorder: List[int]
+        :rtype: Optional[TreeNode]
+        """
+        
+        def helper(inorder, postorder):
+            if len(inorder) == 0: return
+            index = inorder.index(postorder[-1])
+
+
+            curr = TreeNode(val=postorder.pop(-1))
+            curr.right = helper(inorder[index+1:], postorder)
+            curr.left = helper(inorder[:index], postorder)
+
+            return curr
+        
+        return helper(inorder, postorder)
+
 
 
 
